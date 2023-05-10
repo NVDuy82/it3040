@@ -13,7 +13,8 @@ void allocate_mem(int ***mt, int m, int n){
     # YOUR CODE HERE #
     *****************/
     *mt = (int **) malloc(m * sizeof(int *));
-    for (int i = 0; i < m; ++i) {
+    int i;
+    for (i = 0; i < m; ++i) {
         *(*mt+i) = (int *) malloc(n * sizeof(int));
     }
 } 
@@ -25,8 +26,9 @@ void input(int **mt, int m, int n){
     /*****************
     # YOUR CODE HERE #
     *****************/
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
+    int i, j;
+    for (i = 0; i < m; ++i) {
+        for (j = 0; j < n; ++j) {
             printf("mt[%d][%d] = ", i, j);
             scanf("%d", *(mt + i) + j);
         }
@@ -39,8 +41,9 @@ void output(int **mt, int m, int n){
     /*****************
     # YOUR CODE HERE #
     *****************/ 
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
+    int i, j;
+    for (i = 0; i < m; ++i) {
+        for (j = 0; j < n; ++j) {
             printf("%d ", *(*(mt + i) + j));
         }
         printf("\n");
@@ -54,8 +57,9 @@ int process(int **mt, int m, int n){
     /*****************
     # YOUR CODE HERE #
     *****************/
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
+    int i, j;
+    for (i = 0; i < m; ++i) {
+        for (j = 0; j < n; ++j) {
             if (!(*(*(mt + i) + j) & 1)) {
                 tong += *(*(mt + i) + j);
             }
@@ -71,6 +75,11 @@ void free_mem(int **mt, int m, int n){
     /*****************
     # YOUR CODE HERE #
     *****************/
+    int i;
+    for (i = 0; i < m; ++i) {
+        free(mt[i]);
+    }
+    free(mt);
 }
 
 int main(){
