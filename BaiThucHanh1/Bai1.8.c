@@ -5,7 +5,7 @@ Bài 1.8. Viết chương trình nhập vào một ma trận
 Sau đó đưa ra tổng các phần tử chẵn của ma trận đó.
 */
 #include <stdio.h>
-#include <cstdlib>
+#include <stdlib.h>
 void allocate_mem(int ***mt, int m, int n){
     //#Allocate memory for the matrix
     
@@ -17,7 +17,7 @@ void allocate_mem(int ***mt, int m, int n){
     for (i = 0; i < m; ++i) {
         *(*mt+i) = (int *) malloc(n * sizeof(int));
     }
-} 
+}
 
 
 void input(int **mt, int m, int n){
@@ -40,7 +40,7 @@ void output(int **mt, int m, int n){
     
     /*****************
     # YOUR CODE HERE #
-    *****************/ 
+    *****************/
     int i, j;
     for (i = 0; i < m; ++i) {
         for (j = 0; j < n; ++j) {
