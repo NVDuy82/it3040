@@ -6,7 +6,7 @@ Sau đó sắp xếp mảng theo thứ tự tăng dần.
 Hiển thị danh sách mảng trước và sau khi sắp xếp.
 */
 #include <stdio.h>
-#include <cstdlib>
+#include <stdlib.h>
 int *a;
 int n, tmp;
 
@@ -23,7 +23,7 @@ int main(){
     /****************/
     
     for(int i = 0; i < n; i++)
-        scanf("%d", a + i); 
+        scanf("%d", a + i);
     
     printf("The input array is: \n");
     for(int i = 0; i < n; i++)
@@ -51,7 +51,7 @@ int main(){
         printf("%d ", *(a + i));
     printf("\n");
     
-    delete [] a;
+    free(a);
     return 0;
 }
 // Nguyen Van Duy - 20215334
