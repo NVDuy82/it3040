@@ -30,7 +30,6 @@ int main() {
         cin >> a[i];
     }
 
-    cout << "out : " << endl;
     process(a, n);
 
     // free memory
