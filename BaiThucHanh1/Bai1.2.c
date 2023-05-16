@@ -9,14 +9,15 @@ int main() {
 	int a[7]= {13, -355, 235, 47, 67, 943, 1222};
 	printf("Nguyen Van Duy - 20215334\n\n");
 	printf("Address of first five elements in memory:\n");
-	for (int i = 0; i < 5; ++i) {
-		printf("\t            a[%d]", i);
+	int i;
+	for (i = 0; i < 5; ++i) {
+		printf("\t    a[%d]", i);
 	}
 	printf("\n");
-	for (int i = 0; i < 5; ++i) {
+	for (i = 0; i < 5; ++i) {
 		printf("\t%p", &a[i]);
 	}
-	
+
 	return 0;
 }
 // Nguyen Van Duy - 20215334
