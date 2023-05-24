@@ -25,6 +25,7 @@ int main(){
     /*****************
     # YOUR CODE HERE #
     *****************/
+    scanf("%d%d%d", &a, &b, &c);
 
     printf("a=2, b=1, c=0: %d\n", get_value(x));
     printf("a=%d, b=1, c=0: %d\n", a, get_value(x, a));
