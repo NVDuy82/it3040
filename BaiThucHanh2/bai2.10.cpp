@@ -37,16 +37,16 @@ Matrix multiply_fast(const Matrix &a, const Matrix &b) {
     /*****************
     # YOUR CODE HERE #
     *****************/
-    Matrix c;
+    Matrix c;  //  c = a x b
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < i+1; ++j) {
-            c.mat[i][i] += a.mat[i][j] * b.mat[j][i];
+            c.mat[i][i] += a.mat[i][j] * b.mat[j][i];  // the main diagonal
         }
         for (int j = i+1; j < N; ++j) {
-            c.mat[i][i] += a.mat[i][j] * b.mat[j][i];
+            c.mat[i][i] += a.mat[i][j] * b.mat[j][i];  // the main diagonal
             for (int k = 0; k < N; ++k) {
-                c.mat[i][j] += a.mat[i][k] * b.mat[k][j];
-                c.mat[j][i] += a.mat[j][k] * b.mat[k][i];
+                c.mat[i][j] += a.mat[i][k] * b.mat[k][j];  // calc c_ij
+                c.mat[j][i] += a.mat[j][k] * b.mat[k][i];  // calc c_ji
             }
         }
     }
