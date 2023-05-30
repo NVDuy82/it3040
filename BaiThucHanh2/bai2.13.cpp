@@ -1,16 +1,25 @@
+// Nguyen Van Duy - 20215334
+/*
+Bài 2.13. Số nguyên lớn là các số nguyên có giá trị rất lớn
+và không thể biểu diễn bằng các kiểu dữ liệu nguyên cơ bản.
+Để biểu diễn số nguyên lớn, ta có thể dùng kiểu struct như sau:
+
+struct bigNum{
+     char sign;
+     char num[101];
+};
+
+Nhiệm vụ các bạn là đa năng hóa các toán tử để thực hiện các phép toán
+số học với kiểu dữ liệu số nguyên lớn vừa định nghĩa ở trên.
+*/
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 
-inline bool isNumber(char c) {
-    return c >= '0' && c <= '9';
-}
-
-inline int to_num(char c) {
-    return c - '0';
-}
-
+// #param big : char[]
+// #param small : char[]
+// #return big + small (phép cộng không dấu)
 inline char * add(char *big, char *small) {
     size_t size = strlen(big) + 1;
     char *s = new char[size+1];
@@ -43,6 +52,9 @@ inline char * add(char *big, char *small) {
     return s;
 }
 
+// #param big : char[]  --> số lớn hơn
+// #param small : char[]  --> số nhỏ hơn
+// #return big - small (phép trừ không dấu)
 inline char * sub(char *big, char *small) {
     size_t size = strlen(big);
     char *s = new char[size+1];
@@ -73,13 +85,15 @@ inline char * sub(char *big, char *small) {
 struct bigNum{
     char sign;
     char num[101]{};
-
+    
+    // no-args constructor
     bigNum() {
         sign = '1';
         num[0] = '0';
         num[1] = '\0';
     }
     
+    // Parameterized constructor
     bigNum(char sign, const char *num) {
         this->sign = sign;
         for (int i = 0; i < 101; ++i) {
@@ -87,28 +101,33 @@ struct bigNum{
         }
     }
     
+    // Parameterized constructor
     bigNum(long long v) {
         *this = v;
     }
     
-    bigNum operator-() const {
-        bigNum res = *this;
-        res.sign = (char) (97 - sign);
-        return res;
-    }
-    
+    // absolute value
     bigNum abs() const {
         bigNum res = *this;
         res.sign = '1';
         return res;
     }
     
+    // Opposite number
+    bigNum operator - () const {
+        bigNum res = *this;
+        res.sign = (char) (97 - sign);
+        return res;
+    }
+    
+    // bigNum = bigNum
     bigNum & operator = (const bigNum v) {
         sign = v.sign;
         memcpy(num, v.num, 101);
         return *this;
     }
     
+    // bigNum = long long int
     bigNum & operator = (long long int v) {
         if (v < 0) {
             sign = '0';
@@ -147,6 +166,9 @@ struct bigNum{
         return os;
     }
     
+    // #param a : bigNum
+    // #param b : bigNum
+    // #return a.abs() > b.abs() (so sánh không dấu)
     static inline bool biggerNum(bigNum a, bigNum b) {
         size_t len1 = strlen(a.num);
         size_t len2 = strlen(b.num);
@@ -188,6 +210,7 @@ struct bigNum{
         return *this + (-other);
     }
     
+    // bigNum x bigNum
     bigNum operator * (bigNum other) {
         int len_this = (int) strlen(this->num);
         int len_other = (int) strlen(other.num);
@@ -221,6 +244,7 @@ struct bigNum{
         return {(this->sign == other.sign) ? '1' : '0', (*temp - '0')  ? temp : temp + 1};
     }
     
+    // bigNum x other(Integer)
     template<class T>
     bigNum operator * (T v) const {
         char sign_res = sign;
@@ -263,3 +287,4 @@ int main() {
     cout << a*b - a*3 + b*4 << endl;
     return 0;
 }
+// Nguyen Van Duy - 20215334
