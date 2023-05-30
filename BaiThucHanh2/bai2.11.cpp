@@ -1,3 +1,8 @@
+// Nguyen Van Duy - 20215334
+/*
+Bài 2.11. Cho 2 đa thức A(x) và B(x) tương ứng có bậc N và M.
+Hãy tính ma trận tích C(x) = A(x) * B(x) có bậc N + M.
+*/
 #include <iostream>
 #include <vector>
 
@@ -9,23 +14,28 @@ private:
     vector<int> a;
 
 public:
+    // no-args constructor
     Polynomial() {
         this->n = 0;
         a.push_back(0);
     }
     
+    // Parameterized constructor
     explicit Polynomial(int n) : n(n) {
         for (int i = 0; i <= n; ++i) {
             a.push_back(0);
         }
     }
     
+    // Parameterized constructor
     Polynomial(int n, const vector<int> &a) : n(n), a(a) {}
 
+    // return size of vector = N + 1
     [[nodiscard]] size_t size() const {
         return a.size();
     }
 
+    // XOR
     [[nodiscard]] int xor_coefficients() const {
         int res = 0;
         
@@ -66,6 +76,7 @@ public:
         return os;
     }
 
+    // multiplying two polynomials
     Polynomial operator * (const Polynomial & v) const {
         Polynomial res(this->n + v.n);
         
@@ -92,3 +103,4 @@ int main() {
 
     return 0;
 }
+// Nguyen Van Duy - 20215334
