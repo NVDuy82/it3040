@@ -15,12 +15,17 @@ using namespace std;
 template <typename T>
 T arr_sum(T * a, int m, T * b, int n) {
     T sum = 0;
+
+    // sum a
     for (int i = 0; i < m; ++i) {
         sum += a[i];
     }
+
+    // sum b
     for (int i = 0; i < n; ++i) {
         sum += b[i];
     }
+    
     return sum;
 }
 
