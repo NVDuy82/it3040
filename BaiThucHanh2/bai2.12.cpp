@@ -46,7 +46,9 @@ int main() {
         if (a.second > b.second) return true;
         if (a.second < b.second) return false;
 
-        return a.first > b.first;
+        // 2 values are equal
+        // sort by key
+        return a.first >= b.first;
     });
 
     // display
