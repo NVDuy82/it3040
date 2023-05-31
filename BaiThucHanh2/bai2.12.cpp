@@ -31,9 +31,12 @@ int main() {
             stringstream ss(s);
             ss >> key >> value;
             if (index.find(key) == index.end()) {
+                // key does not exist
                 list.emplace_back(key, value);
                 index[key] = i;
             } else {
+                // replace
+                // change value
                 list[index[key]] = make_pair(key, value);
                 --i;
             }
