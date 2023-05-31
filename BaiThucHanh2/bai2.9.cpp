@@ -3,7 +3,6 @@
 Bài 2.9. Dưới đây cung cấp đoạn code đơn giản để tính hàm sigmoid theo công thức trực tiếp.
 Hãy viết hàm tính xấp xỉ sigmoid(x) đến độ chính xác và có tốc độ nhanh hơn ít nhất 30% so với code đơn
 giản.
-
 */
 #include <vector>
 #include <algorithm>
