@@ -23,6 +23,7 @@ int main() {
     sort(a.begin(), a.end(), [](vector<int> a, vector<int> b) -> bool {
         return accumulate(a.begin(), a.end(), 0) > accumulate(b.begin(), b.end(), 0);
     });
+    
     for (const auto &v : a) {
         for (int it : v) {
             cout << it << ' ';
