@@ -35,7 +35,7 @@ int main() {
                 list.emplace_back(key, value);
                 index[key] = i;
             } else {
-                // replace
+                // update
                 // change value
                 list[index[key]] = make_pair(key, value);
                 --i;
