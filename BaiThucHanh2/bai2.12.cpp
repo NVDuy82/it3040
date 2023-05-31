@@ -48,7 +48,7 @@ int main() {
 
         // 2 values are equal
         // sort by key
-        return a.first >= b.first;
+        return a.first > b.first;
     });
 
     // display
