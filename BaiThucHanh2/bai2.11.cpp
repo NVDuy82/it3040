@@ -96,9 +96,11 @@ public:
 
 int main() {
     Polynomial a, b;
+    
+    // enter 2 polynomials
     cin >> a >> b;
-    cout << a << endl;
-    cout << b << endl;
+    
+    // XOR of the coefficients of the polynomial
     cout << (a*b).xor_coefficients() << endl;
 
     return 0;

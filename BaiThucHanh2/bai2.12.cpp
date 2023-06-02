@@ -29,14 +29,17 @@ int main() {
         } else {
             int key, value;
             stringstream ss(s);
+            
+            // get key and value
             ss >> key >> value;
+            
             if (index.find(key) == index.end()) {
                 // key does not exist
                 list.emplace_back(key, value);
                 index[key] = i;
             } else {
-                // update
-                // change value
+                // key exists
+                // update : change value
                 list[index[key]] = make_pair(key, value);
                 --i;
             }
@@ -54,7 +57,7 @@ int main() {
         return a.first > b.first;
     });
 
-    // display
+    // display list
     for (auto i : list) {
         cout << i.first << " " << i.second << endl;
     }

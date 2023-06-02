@@ -1,9 +1,10 @@
 // Nguyen Van Duy - 20215334
 /*
-Bài 2.6. Giả thuyết Collatz: bắt đầu từ số dương n bất kỳ, nếu n chẵn thì chia 2, nếu n lẻ thì nhân 3 cộng 1, giả thuyết cho
-rằng ta luôn đi đến .
-Hãy viết chương trình mô phỏng lại quá trình biến đổi để kiếm chứng giả thuyết với giá trị của nhập từ bàn
-phím.
+Bài 2.6. Giả thuyết Collatz: bắt đầu từ số dương n bất kỳ,
+nếu n chẵn thì chia 2, nếu n lẻ thì nhân 3 cộng 1,
+giả thuyết cho rằng ta luôn đi đến n = 1.
+Hãy viết chương trình mô phỏng lại quá trình biến đổi để
+kiếm chứng giả thuyết với giá trị của nhập từ bàn phím.
 */
 #include <stdio.h>
 
