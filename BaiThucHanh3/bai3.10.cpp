@@ -13,6 +13,7 @@ Các xâu phải được liệt kê theo thứ tự từ điển
 
 using namespace std;
 
+// in ra cac gia tri trong vector<int>
 inline void print_sol(const vector<int>& v) {
     for (int i : v) {
         cout << i;
@@ -21,21 +22,26 @@ inline void print_sol(const vector<int>& v) {
 }
 
 int main() {
-    int t;
-    cin >> t;
+    int t; // so test case
+    cin >> t; // nhap so test case
     
     while (t--) {
-        int n, h;
+        int n, h; // do dai xau, va khoang cach Hamming
         cin >> n >> h;
-        vector<int> v(n);
+        vector<int> v(n); // luu loi giai xau nhi phan
+
+        // tim loi giai cuoi cung theo thu tu tu dien
         for (int i = 0; i < n; ++i) {
             v[i] = i < h ? 1 : 0;
         }
-        vector<int> v_end(n);
+        
+        vector<int> v_end(n); // luu loi giai cuoi cung theo thu tu tu dien
         v_end = v;
+        
         do {
+            // ket qua ke tiep theo thu tu tu dien
             next_permutation(v.begin(), v.end());
-            print_sol(v);
+            print_sol(v); // in ra xau ket qua
         } while (v != v_end);
     }
     
