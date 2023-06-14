@@ -21,15 +21,20 @@ int lis(int i) {
     # YOUR CODE HERE #
     *****************/
     if (mem[i] != -1) {
+        // tra ve ket qua da duoc giai
         return mem[i];
     }
-    int res = 1;
+    
+    int res = 1; //# luu loi giai cua bai toan
     for(int j = 0; j < i; j++){
+        // neu day con truoc do < a[i]
         if (a[j] < a[i]){
+            // res = day con dai nhat phia truoc + 1
             res = max(res, lis(j) + 1);
         }
     }
-    mem[i] = res;
+    
+    mem[i] = res; // luu loi giai cua bai toan con da duoc giai
     return res;
 }
 
