@@ -1,37 +1,41 @@
 // Nguyen Van Duy - 20215334
 /*
-Bài 3.8. Bạn đang muốn kiểm tra xem một vật cho trước có đúng nặng  M  như người ta nói hay không.
-Có một cân thăng bằng và  n quả cân. Quả thứ  i  nặng  mi. Hãy chỉ ra một cách cân thỏa mãn.
-Quy cách in ra đã được tích hợp trong mã nguồn dưới.
+Bài 3.9. Một y tá cần lập lịch làm việc trong  N  ngày,
+mỗi ngày chỉ có thể là làm việc hay nghỉ ngơi.
+Một lịch làm việc là tốt nếu không có hai ngày nghỉ nào
+liên tiếp và mọi chuỗi ngày tối đại làm việc liên tiếp
+đều có số ngày thuộc đoạn  [K1,K2].
+Hãy liệt kê tất cả các cách lập lịch tốt, với mỗi lịch
+in ra trên một dòng một xâu nhị phân độ dài  n  với
+bit 0/1 tương ứng là nghỉ/làm việc.
+Các xâu phải được in ra theo thứ tự từ điển
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 struct state{
-    int i, j;
-    state(int _i = 0, int _j = 0): i(_i), j(_j) {}
+    int i, j, old_L;
+    //# constructor
+    state(int _i = 0, int _j = 0, int _L = 0):
+            i(_i), j(_j), old_L(_L){}
 };
 
 int main() {
-    int n, M;
-    cin >> n >> M;
-    int m[n+1];
-    for (int i = 1; i <= n; ++i) cin >> m[i];
+    int n, k1, k2;
+    cin >> n >> k1 >> k2;
     int x[n+1];
     stack<state> s;
-    //# sum of selected weights
-    int sum = 0;
-    s.push(state(1, -1));
+    //# number of consecutive suffix 1
+    int L = 0;
+    s.push(state(1, 0));
     while (!s.empty()){
         state &top = s.top();
+        //# if a new binary sequence is found
         if (top.i > n){
-            if (sum == M){
-                for (int i = 1; i <= n; ++i){
-                    if (x[i] == -1) cout << '-' << m[i];
-                    if (x[i] == 1) cout << '+' << m[i];
-                }
-                cout << "=" << M;
-                exit(0);
+            if (x[n] && top.old_L >= k1 || !x[n]) {
+                for (int i = 1; i <= n; ++i)
+                    cout << x[i];
+                cout << endl;
             }
             s.pop();
             continue;
@@ -43,31 +47,29 @@ int main() {
         *****************/
         
         // luu cac gia tri o ngan dau tien stack
-        int i = top.i, j = top.j;
+        int i = top.i, j = top.j, old_L = top.old_L;
         s.pop();
         
-        // neu truong hop truoc do da tung su dung qua can i
-        if (x[i] == 1) {
-            // huy bo trang thai truoc do
-            sum -= m[i]; // tinh lai sum
-        }
+        x[i] = j; // ghi trang thai lam viec ngay i
         
-        x[i] = j; // ghi gia tri j vao vi tri thu i (1 hoac -1)
-        
-        if (j == 1) {
-            // su dung qua can thu i
-            sum += m[i];
+        if (j) {
+            // case: j = 1
+            L = old_L + 1; // so ngay lam viec lien tiep tang them 1
+            if (L >= k1) {
+                s.push(state(i + 1, 0, L));
+            } else {
+                s.push(state(i + 1, 1, L));
+            }
         } else {
-            // j = -1
-            // khong su dung qua can i
-            s.push(state(i, 1)); // dua vao stack 1 state (su dung qua can i)
+            // case: j = 0
+            L = 0; // reset so ngay lam viec truoc do
+            if (old_L + 1 <= k2) {
+                s.push(state(i, 1, old_L));
+            }
+            s.push(state(i+1, 1, L));
         }
         
-        // dua vao stack 1 state (khong su dung qua can i)
-        s.push(state(i + 1, -1));
     }
-    cout << -1;
-    
     return 0;
 }
 // Nguyen Van Duy - 20215334
