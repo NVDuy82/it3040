@@ -36,30 +36,38 @@ int main() {
             s.pop();
             continue;
         }
-
+        
         //# Khử đệ quy
         /*****************
         # YOUR CODE HERE #
         *****************/
+        
+        // luu cac gia tri o ngan dau tien stack
         int i = top.i, j = top.j;
         s.pop();
         
+        // neu truong hop truoc do da tung su dung qua can i
         if (x[i] == 1) {
-            sum -= m[i];
+            // huy bo trang thai truoc do
+            sum -= m[i]; // tinh lai sum
         }
         
-        x[i] = j;
+        x[i] = j; // ghi gia tri j vao vi tri thu i (1 hoac -1)
+        
         if (j == 1) {
+            // su dung qua can thu i
             sum += m[i];
+        } else {
+            // j = -1
+            // khong su dung qua can i
+            s.push(state(i, 1)); // dua vao stack 1 state (su dung qua can i)
         }
         
-        if (j == -1) {
-            s.push(state(i, 1));
-        }
+        // dua vao stack 1 state (khong su dung qua can i)
         s.push(state(i + 1, -1));
     }
     cout << -1;
-
+    
     return 0;
 }
 // Nguyen Van Duy - 20215334
