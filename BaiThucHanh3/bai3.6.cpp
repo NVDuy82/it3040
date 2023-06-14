@@ -11,20 +11,23 @@ int gcd(int a, int b){
 }
 
 int gcd2(int a, int b){
-
+    
     //# Khử đệ quy
     /*****************
     # YOUR CODE HERE #
     *****************/
+    // lap den khi a = 0 hoac b = 0
     while(a && b) {
+        // so lon = so lon % so be
         if (a > b) {
             a = a % b;
         } else {
             b = b % a;
         }
     }
-
-    return a + b;
+    
+    // tra ve so khac 0 trong hai so a va b
+    return a ? a : b;
 }
 
 int main() {
