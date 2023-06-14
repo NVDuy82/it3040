@@ -33,21 +33,27 @@ void TRY(int k){
         # YOUR CODE HERE #
         *****************/
         if(mark[i] == 0 && c[x[k-1]][i] != 0){
-            x[k] = i;
-            mark[i] = 1;
-            curr += c[x[k-1]][i];
+            x[k] = i; // luu thanh pho da di
+            mark[i] = 1; // danh dau thanh pho i da duoc di qua
+            curr += c[x[k-1]][i]; // cap nhat chi phi khi di qua thanh pho i
             if(k == n){
+                // neu da di het n thanh pho
                 if(c[x[k]][1] != 0){
-                    best = min(best, curr + c[x[k]][1]);
+                    // va
+                    // thanh pho cuoi cung di ve lai duoc thanh pho ban dau
+                    best = min(best, curr + c[x[k]][1]); // cap nhat ket qua
                 }
             }else{
-                int g = curr + (n-k+1)*cmin;
+                int g = curr + (n-k+1)*cmin; // chi phi toi thieu neu tiep tuc di
                 if(g < best){
+                    // neu co the nho hon chi phi tot nhat cua hien tai
+                    // thi tiep tuc
                     TRY(k+1);
                 }
             }
-            mark[i] = 0;
-            curr -= c[x[k-1]][i];
+            
+            mark[i] = 0; // bo danh dau
+            curr -= c[x[k-1]][i]; // xoa chi phi da di
         }
     }
 }
