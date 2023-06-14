@@ -30,23 +30,28 @@ void TRY(int k){
         /*****************
         # YOUR CODE HERE #
         *****************/
-        // 1
+        
         if (0 < xx && xx <= n && 0 < yy && yy <= n && mark[xx][yy] != 1) {
-            X[k] = xx;
-            Y[k] = yy;
-            mark[xx][yy] = 1;
+            // neu (xx yy) van nam trong o co
+            // va
+            // vi tri do chua duoc di
+            X[k] = xx;  // luu toa do x cua quan ma
+            Y[k] = yy;  // luu toa do y cua quan ma
+            mark[xx][yy] = 1;  // danh dau o co da duoc di
         } else {
+            // backtrack
             continue;
         }
         
-        // 2
         if (k == n*n) {
+            // ghi nhan ket qua
             print_sol();
         } else {
+            // tim buoc di tiep theo
             TRY(k+1);
         }
         
-        // 3
+        // bo danh dau
         mark[xx][yy] = 0;
     }
 }
