@@ -40,31 +40,35 @@ int main() {
             s.pop();
             continue;
         }
-
+        
         //# Khử đệ quy
         /*****************
         # YOUR CODE HERE #
         *****************/
+        
+        // luu cac gia tri o ngan dau tien stack
         int i = top.i, j = top.j, old_L = top.old_L;
         s.pop();
-
-        x[i] = j;
-
+        
+        x[i] = j; // ghi trang thai lam viec ngay i
+        
         if (j) {
-            L = old_L + 1;
+            // case: j = 1
+            L = old_L + 1; // so ngay lam viec lien tiep tang them 1
             if (L >= k1) {
                 s.push(state(i + 1, 0, L));
             } else {
                 s.push(state(i + 1, 1, L));
             }
         } else {
-            L = 0;
+            // case: j = 0
+            L = 0; // reset so ngay lam viec truoc do
             if (old_L + 1 <= k2) {
                 s.push(state(i, 1, old_L));
             }
             s.push(state(i+1, 1, L));
         }
-
+        
     }
     return 0;
 }
