@@ -56,16 +56,21 @@ int main() {
             // case: j = 1
             L = old_L + 1; // so ngay lam viec lien tiep tang them 1
             if (L >= k1) {
+                // dua vao stack 1 state (nghi vao ngay tiep theo)
                 s.push(state(i + 1, 0, L));
             } else {
+                // dua vao stack 1 state (di lam vao ngay tiep theo)
                 s.push(state(i + 1, 1, L));
             }
         } else {
             // case: j = 0
             L = 0; // reset so ngay lam viec truoc do
             if (old_L + 1 <= k2) {
+                // chuoi ngay lam viec truoc do chua toi da
+                // dua vao stack 1 state (di lam vao ngay hien tai)
                 s.push(state(i, 1, old_L));
             }
+            // dua vao stack 1 state (di lam vao ngay tiep theo)
             s.push(state(i+1, 1, L));
         }
         
@@ -73,3 +78,4 @@ int main() {
     return 0;
 }
 // Nguyen Van Duy - 20215334
+
