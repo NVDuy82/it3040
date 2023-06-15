@@ -10,7 +10,6 @@ Yêu cầu hàm trả ra thứ tự các đỉnh được thăm
 */
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <list>
 #include <stack>
 
