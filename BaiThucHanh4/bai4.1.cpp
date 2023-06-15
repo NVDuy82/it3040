@@ -1,3 +1,10 @@
+// Nguyen Van Duy - 20215334
+/*
+Bài 4.1. Hãy hoàn thiện các hàm thao tác trên một danh sách liên kết:
+ • Thêm một phần tử vào đầu danh sách liên kết
+ • In danh sách
+ • Đảo ngược danh sách liên kết (yêu cầu độ phức tạp thời gian O(N) và chi phí bộ nhớ dùng thêm O(1))
+*/
 #include <iostream>
 using namespace std;
 struct Node {
@@ -15,9 +22,9 @@ Node* prepend(Node* head, int data) {
     /*****************
     # YOUR CODE HERE #
     *****************/
-    Node* newNode = new Node(data);
-    newNode->next = head;
-    return newNode;
+    Node* newNode = new Node(data); // new node is new head
+    newNode->next = head; // point to head
+    return newNode; // return new node
 }
 
 // print the list content on a line
@@ -25,12 +32,12 @@ void print(Node* head) {
     /*****************
     # YOUR CODE HERE #
     *****************/
-    Node* temp = head;
-    while (temp != NULL) {
-        cout << temp->data << " ";
-        temp = temp->next;
+    Node* temp = head; // temp node
+    while (temp != NULL) { // loop through
+        cout << temp->data << " "; // print
+        temp = temp->next; // next node
     }
-    cout << endl;
+    cout << endl; // end of
 }
 
 // return the new head of the reversed list
@@ -38,14 +45,14 @@ Node* reverse(Node* head) {
     /*****************
     # YOUR CODE HERE #
     *****************/
-    Node* prev = NULL;
-    Node* curr = head;
-    Node* next = NULL;
-    while (curr != NULL) {
-        next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
+    Node* prev = NULL; // previous
+    Node* curr = head; // current
+    Node* next = NULL; // next
+    while (curr != NULL) { // loop through
+        next = curr->next; // save next node
+        curr->next = prev; // move the cursor to previous node
+        prev = curr; // move to next
+        curr = next; // move to next
     }
     return prev;
 }
@@ -69,3 +76,4 @@ int main() {
 
     return 0;
 }
+// Nguyen Van Duy - 20215334
