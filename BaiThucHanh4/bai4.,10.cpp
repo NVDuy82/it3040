@@ -10,7 +10,6 @@ Sử dụng phương pháp tính điểm TF-IDF
 #include <iostream>
 #include <vector>
 #include <map>
-#include <algorithm>
 #include <cmath>
 
 using namespace std;
@@ -25,19 +24,40 @@ public:
 
     explicit Document(const vector<string> &t) : t(t) {}
 
-    virtual ~Document() {
-        std::destroy(t.begin(), t.end());
+    ~Document() {
+        t.clear();
+        t.shrink_to_fit();
+        f.clear();
+        tf.clear();
     }
 
     [[nodiscard]] int size() const { return t.size(); }
 
     [[nodiscard]] const string &operator[](int i) const { return t[i]; }
 
-    friend ostream &operator<<(ostream &os, const Document &d) {
-        for (int i = 0; i < d.size(); ++i) {
-            os << d[i] << endl;
+    Document & operator=(const Document & d) = default;
+
+    friend ostream &operator<<(ostream &os, const Document d) {
+        int i;
+        for (i = 0; i < d.size() - 1; ++i) {
+            os << d[i] << ", ";
         }
+        os << d[i];
         return os;
+    }
+
+    friend istream &operator>>(istream &is, Document &d) {
+        string s;
+        is >> s;
+        for (int i = 0; i < s.size(); ++i) {
+            if (s[i] == ',') {
+                d.t.push_back(s.substr(0, i));
+                s = s.substr(i + 1);
+                i = -1;
+            }
+        }
+        d.t.push_back(s);
+        return is;
     }
 
     friend bool operator==(const Document &d1, const Document &d2) {
@@ -90,13 +110,13 @@ public:
             return tf[_t];
         } else {
             double res; // result
-            int max_f = INT_MIN;
+            int max_f = 0;
             for (const auto & i : f) {
                 if (i.second > max_f) {
                     max_f = i.second;
                 }
             }
-            res = 0.5 + 0.5 * f_td(_t) / max_f;
+            res = max_f ? (0.5 + 0.5 * f_td(_t) / max_f) : 0;
             tf[_t] = res;
             return res;
         }
@@ -122,9 +142,10 @@ public:
             d.emplace_back();
         }
     }
-
-    virtual ~Documents() {
-        std::destroy(d.begin(), d.end());
+    
+    ~Documents() {
+        d.clear();
+        d.shrink_to_fit();
     }
 
     void add(const Document& doc) {
@@ -144,11 +165,17 @@ public:
         }
     }
 
-    Documents &operator=(const Documents &d) = default;
+    [[nodiscard]] const Document &operator[](int i) const { return d[i]; }
+
+    Documents &operator=(const Documents& docs) {
+        this->d.clear();
+        for (int i = 0; i < docs.size(); i++) {
+            this->d.push_back(docs[i]);
+        }
+        return *this;
+    }
 
     [[nodiscard]] int size() const { return d.size(); }
-
-    [[nodiscard]] const Document &operator[](int i) const { return d[i]; }
 
     friend ostream & operator<<(ostream & os, Document &documents) {
         for (int i = 0; i < documents.size(); ++i) {
@@ -169,7 +196,7 @@ public:
 
     double idf(string t) {
         int n = d.size();
-        return log2(n / df(t));
+        return df(t) ? log2(n / df(t)) : 0;
     }
 
     double score(string t, int index_doc) {
@@ -185,6 +212,13 @@ public:
     Query() = default;
 
     explicit Query(const vector<string> &t) : t(t) {}
+    
+    ~Query() {
+        t.clear();
+        t.shrink_to_fit();
+        score.clear();
+        score.shrink_to_fit();
+    }
 
     void calc(Documents documents) {
         for (int i = 0; i < documents.size(); ++i) {
@@ -199,11 +233,41 @@ public:
         return score[index_doc];
     }
 
-    friend ostream & operator<<(ostream & os, Query query) {
-        for (const auto & i : query.score) {
-            os << i << " ";
+    int search_index() {
+        int res = 0;
+        for (int i = 0; i < score.size(); ++i) {
+            if (score[i] > score[res]) {
+                res = i;
+            }
         }
+        return ++res;
+    }
+
+    [[nodiscard]] int size() { return t.size(); }
+
+    [[nodiscard]] const string &operator[](int i) const { return t[i]; }
+
+    friend ostream & operator<<(ostream & os, Query query) {
+        int i;
+        for (i = 0; i < query.size() - 1; i++) {
+            os << query[i] << ", ";
+        }
+        os << query[i];
         return os;
+    }
+
+    friend istream & operator>>(istream & is, Query &query) {
+        string s;
+        is >> s;
+        for (int i = 0; i < s.size(); ++i) {
+            if (s[i] == ',') {
+                query.t.push_back(s.substr(0, i));
+                s = s.substr(i + 1);
+                i = -1;
+            }
+        }
+        query.t.push_back(s);
+        return is;
     }
 };
 
@@ -216,6 +280,15 @@ public:
     explicit Queries(const vector<Query> &queries) {
         this->queries = queries;
     }
+    
+    ~Queries() {
+        queries.clear();
+        queries.shrink_to_fit();
+    }
+
+    [[nodiscard]] int size() { return queries.size(); }
+
+    [[nodiscard]] const Query &operator[](int i) const { return queries[i]; }
 
     void add(const Query & q) {
         this->queries.push_back(q);
@@ -232,31 +305,40 @@ public:
     }
 
     friend ostream & operator<<(ostream & os, Queries q) {
-        for (const auto & i : q.queries) {
-            os << i << endl;
+        int i;
+        for (i = 0; i < q.size() - 1; i++) {
+            os << q[i] << endl;
         }
+        os << q[i];
         return os;
     }
 };
 
 int main() {
+    int n, q;
     Documents docs;
-    docs.add(Document({"k", "k", "ow"}));
-    docs.add(Document({"bb", "ar", "h"}));
-    docs.add(Document({"qs", "qs", "qs"}));
-    docs.add(Document({"qs", "qs", "qs"}));
-    docs.add(Document({"d", "bb", "q", "d", "rj"}));
-    docs.add(Document({"ow"}));
-
     Queries queries;
-    queries.add(Query({"h", "d", "d", "qs", "q", "q", "ar"}));
-    queries.add(Query({"qs", "qs"}));
-    queries.add(Query({"hc", "d", "ow", "d", "qs"}));
-    queries.add(Query({"ow", "wl", "hc", "k"}));
-    queries.add(Query({"q", "hc", "q", "d", "hc", "q"}));
+
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        Document document;
+        cin >> document;
+        docs.add(document);
+    }
+
+    cin >> q;
+    for (int i = 0; i < q; ++i) {
+        Query query;
+        cin >> query;
+        queries.add(query);
+    }
 
     queries.calc(docs);
-    cout << queries << endl;
+
+    for (int i = 0; i < queries.size(); ++i) {
+        Query q = queries[i];
+        cout << q.search_index() << endl;
+    }
 
     return 0;
 }
