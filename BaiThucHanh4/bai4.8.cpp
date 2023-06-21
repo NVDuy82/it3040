@@ -52,7 +52,7 @@ map<T, double> fuzzy_set_intersection(const map<T, double> &a, const map<T, doub
 }
 
 template<class T>
-void print_fuzzy_set(const std::map<T, double> &a) {
+void print_fuzzy_set(std::map<T, double> &a) {
     cout << "{ ";
     for (const auto &x : a) {
         std::cout << "(" << x.first << ", " << x.second << ") ";
