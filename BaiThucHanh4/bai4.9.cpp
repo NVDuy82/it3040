@@ -28,7 +28,7 @@ vector<int> dijkstra(const vector< vector< pair<int, int> > >&adj) {
     while (!pq.empty()) { // loop
         int u = pq.top().second; // get vertex (u)
         pq.pop(); // remove from top of priority queue
-        for (int i = 0; i < adj[u].size(); i++) { // loop through adjacent vertices of current vertex (u)
+        for (size_t i = 0; i < adj[u].size(); i++) { // loop through adjacent vertices of current vertex (u)
             int v = adj[u][i].first; // get vertex (v)
             int w = adj[u][i].second; // get weight to the vertex (v)
             if (dist[v] > dist[u] + w) { // check if old distance is greater than new distance
