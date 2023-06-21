@@ -18,7 +18,7 @@ void delete_even(vector<int> &a) {
     # YOUR CODE HERE #
     *****************/
 
-    for (int i = 0; i < a.size(); i++) { // loop
+    for (size_t i = 0; i < a.size(); i++) { // loop
         if (a[i] % 2 == 0) { // check even numbers
             a.erase(a.begin() + i); // remove
             i--; // decrement to keep index
@@ -43,10 +43,10 @@ vector<int> merge_vectors(const vector<int> &a, const vector<int> &b) {
 
     // merge 2 sorted vectors, return sorted vector
     vector<int> c; // result
-    int i = 0, j = 0; // index
+    size_t i = 0, j = 0; // index
     while (i < a.size() && j < b.size()) { // loop until a ends or b ends
         // add smaller element
-        if (a[i] < b[j]) {
+        if (a[i] > b[j]) {
             c.push_back(a[i]);
             i++; // increment index of vector a
         } else {
