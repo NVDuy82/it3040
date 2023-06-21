@@ -19,20 +19,21 @@ void dfs(vector< list<int> > adj) {
     stack<int> S;
     vector<bool> visited(adj.size());
     S.push(1); // Bắt đầu từ đỉnh số 1
-
+    
     /*****************
     # YOUR CODE HERE #
     *****************/
-
+    
     while (!S.empty()) { // loop
         int u = S.top(); // get top
         S.pop(); // pop from the top of the stack
-        if (visited[u] == false) { // check if u is not visited
+        if (!visited[u]) { // check if u is not visited
             visited[u] = true; // visit u
-            cout << u << " "; // print
-            for (int it : adj[u]) { // loop through adjacent of u
-                if (visited[it] == false) { // check if it is not visited
-                    S.push(it); // push it to stack to visit later
+            cout << u << endl; // print
+            list<int>::iterator it; // iterator
+            for (it = adj[u].end(); it-- != adj[u].begin(); ) { // loop through adjacent of u
+                if (!visited[*it]) { // check if it is not visited
+                    S.push(*it); // push it to stack to visit later
                 }
             }
         }
