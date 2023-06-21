@@ -19,25 +19,23 @@ void bfs(vector< list<int> > adj) {
     queue<int> Q;
     vector<bool> visited(adj.size());
     Q.push(1); // Bắt đầu từ đỉnh số 1
-
+    
     /*****************
     # YOUR CODE HERE #
     *****************/
-
+    
+    visited[1] = true; // mark 1
     while (!Q.empty()) { // loop
         int u = Q.front(); // get first
         Q.pop(); // remove an element from the front of the queue
-        visited[u] = true; // visit u
-        cout << u << " "; // print
+        cout << u << endl; // print
         for (auto v : adj[u]) { // loop through adjacent of u
             if (!visited[v]) { // check if it is not visited
                 Q.push(v); // push it to queue to visit later
+                visited[v] = true; // visit v
             }
         }
     }
 }
 
-int main() {
-
-}
 // Nguyen Van Duy - 20215334
