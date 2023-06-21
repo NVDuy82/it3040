@@ -40,7 +40,7 @@ set<T> set_intersection(const set<T> &a, const set<T> &b) {
 }
 
 template<class T>
-void print_set(const std::set<T> &a) {
+void print_set(std::set<T> &a) {
      for (const T &x : a) {
          std::cout << x << ' ';
      }
