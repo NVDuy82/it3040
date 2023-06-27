@@ -25,32 +25,33 @@ private:
 public:
     // constructor with no arguments
     Wall() : a(0), k(0) {}
-    
+
     // constructor with arguments : @a, @k
     Wall(int a, int k) : a(a), k(k) {}
-    
+
     [[nodiscard]] int passed() const { return a; }
-    
+
     [[nodiscard]] int getK() const { return k; }
-    
+
     void send_soldier(int numbers = 1) {
         a = max(0, a - numbers * k); // recalculate number of enemies entering
         k = min(k, a); // update @k
     }
-    
+
     friend bool operator<(const Wall &w_1, const Wall &w_2) { return w_1.k < w_2.k; }
-    
+
     friend bool operator>(const Wall &w_1, const Wall &w_2) { return w_1.k > w_2.k; }
-    
+
     friend bool operator<=(const Wall &w_1, const Wall &w_2) { return w_1.k <= w_2.k; }
-    
+
     friend bool operator>=(const Wall &w_1, const Wall &w_2) { return w_1.k >= w_2.k; }
-    
+
     friend istream &operator>>(istream &is, Wall &w) {
         is >> w.a >> w.k; // input @a, @k
+        w.k = min(w.k, w.a); // update @k
         return is; // return stream
     }
-    
+
     friend ostream &operator<<(ostream &os, const Wall w) {
         os << "{a = " << w.a << "; k = " << w.k << "}"; // output
         return os; // return stream
@@ -71,19 +72,19 @@ inline int number_of_enemies_entering(vector<Wall> &v) {
 int main() {
     int n, s; // number of wall, and number of soldier
     cin >> n >> s; // enter @n, @s
-    
+
     vector<Wall> walls(n); // wall list
     for (int i = 0; i < n; i++) {
         cin >> walls[i]; // enter @a, @k of the wall
     }
-    
+
     while (s--) { // send soldiers one by one to the wall
         sort_walls(walls); // descending order : sort from largest to smallest
         walls[0].send_soldier(); // send a soldier to
     }
-    
+
     cout << number_of_enemies_entering(walls) << endl; // output
-    
+
     return 0;
 }
 
