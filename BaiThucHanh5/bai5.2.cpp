@@ -17,7 +17,7 @@ int x[100], best, sumV, sumM, All[100];
 
 void init(){
     for (int i = n; i >= 1; --i){
-        all[i] = all[i+1] + v[i];
+        All[i] = All[i+1] + v[i];
     }
 }
 
@@ -26,10 +26,10 @@ void print() {
 }
 
 void process(int i){
-    if (sumV + all[i] <= best || sumM > M) return 0;
+    if (sumV + All[i] <= best || sumM > M) return;
     if (i > n){
-        best = sumV
-        return 0;
+        best = sumV;
+        return;
     }
     process(i+1);
     sumM += m[i];
